@@ -15,7 +15,7 @@ public static class ApplicationServiceRegistration
         services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddMediatR(cfg => {
-            cfg.RegisterServicesFromAssembly(typeof(IServiceCollection).Assembly);
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviors<,>));

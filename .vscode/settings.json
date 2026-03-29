@@ -1,1 +1,8 @@
-{}
+{
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  "rest-client.excludeHostName": false,
+  "aspnetcore.launchUrl": "swagger"
+}
