@@ -12,7 +12,9 @@
 
   <ItemGroup>
     <Folder Include="Behaviors\" />
+    <Folder Include="Constants\" />
     <Folder Include="Contracts\" />
+    <Folder Include="Contracts\Identity\" />
     <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Contracts\Persistence\" />
     <Folder Include="Exceptions\" />
