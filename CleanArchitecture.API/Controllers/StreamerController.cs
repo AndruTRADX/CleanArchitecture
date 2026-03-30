@@ -2,6 +2,7 @@ using CleanArchitecture.Application.Features.Streamers.Commands.Create;
 using CleanArchitecture.Application.Features.Streamers.Commands.Delete;
 using CleanArchitecture.Application.Features.Streamers.Commands.Update;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +15,14 @@ namespace CleanArchitecture.API.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
+        [Authorize(Roles = "Administration")]
         public async Task<ActionResult<int>> Create(CreateStreamerCommand command)
         {
             return await _mediator.Send(command);
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administration")]
         public async Task<ActionResult<Unit>> Update(UpdateStreamerCommand command)
         {
             await _mediator.Send(command);
@@ -27,6 +30,7 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpDelete("id")]
+        [Authorize(Roles = "Administration")]
         public async Task<ActionResult<Unit>> Delete(int id)
         {
             await _mediator.Send(new DeleteStreamerCommand { Id = id });

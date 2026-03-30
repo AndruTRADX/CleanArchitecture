@@ -5,13 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Identity.Persistence;
 
-public class CAIdentityDbContext : IdentityDbContext<ApplicationUser>
+public class CAIdentityDbContext(DbContextOptions<CAIdentityDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
-    public CAIdentityDbContext(DbContextOptions<CAIdentityDbContext> options) : base(options)
-    {
-        
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
