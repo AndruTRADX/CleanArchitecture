@@ -1,7 +1,6 @@
 using System;
 using FluentValidation;
 using MediatR;
-using ValidationException = CleanArchitecture.Application.Exceptions.ValidationException;
 
 namespace CleanArchitecture.Application.Behaviors;
 

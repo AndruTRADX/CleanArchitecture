@@ -15,14 +15,14 @@ namespace CleanArchitecture.API.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
-        [Authorize(Roles = "Administration")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<int>> Create(CreateStreamerCommand command)
         {
             return await _mediator.Send(command);
         }
 
         [HttpPut]
-        [Authorize(Roles = "Administration")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<Unit>> Update(UpdateStreamerCommand command)
         {
             await _mediator.Send(command);
@@ -30,7 +30,7 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpDelete("id")]
-        [Authorize(Roles = "Administration")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<Unit>> Delete(int id)
         {
             await _mediator.Send(new DeleteStreamerCommand { Id = id });

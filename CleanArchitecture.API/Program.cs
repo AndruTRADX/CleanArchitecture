@@ -1,3 +1,4 @@
+using CleanArchitecture.API.Middleware;
 using CleanArchitecture.Application;
 using CleanArchitecture.Identity;
 using CleanArchitecture.Infrastructure;
@@ -21,7 +22,12 @@ builder.Services.AddCors(options =>
         builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
+// Transient means that is going to be instantiated when needed only (when an exception happens in this case)
+builder.Services.AddTransient<ExceptionMiddleware>();
+
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

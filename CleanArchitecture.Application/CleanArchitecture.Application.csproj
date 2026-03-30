@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Behaviors\" />
     <Folder Include="Constants\" />
-    <Folder Include="Contracts\" />
     <Folder Include="Contracts\Identity\" />
     <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Contracts\Persistence\" />
@@ -30,6 +29,7 @@
     <Folder Include="Features\Videos\Queries\" />
     <Folder Include="Features\Videos\Queries\GetVideos\" />
     <Folder Include="Models\Email\" />
+    <Folder Include="Models\Exception\" />
   </ItemGroup>
 
   <ItemGroup>
