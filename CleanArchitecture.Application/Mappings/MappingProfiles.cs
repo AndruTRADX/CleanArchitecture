@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using CleanArchitecture.Application.Features.Directors.Commands.Create;
 using CleanArchitecture.Application.Features.Streamers.Commands.Create;
 using CleanArchitecture.Application.Features.Streamers.Commands.Update;
 using CleanArchitecture.Application.Models.Response;
@@ -15,5 +16,7 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateStreamerCommand, Streamer>();
         CreateMap<UpdateStreamerCommand, Streamer>();
+
+        CreateMap<CreateDirectorCommand, Director>();
     }
 }

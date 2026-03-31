@@ -21,8 +21,14 @@ public static class InfrastructureServiceRegistration
         });
 
         services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+        
+        // Personalized Repositories
         services.AddScoped<IVideoRepository, VideoRepository>();
         services.AddScoped<IStreamerRepository, StreamerRepository>();
+
+        // Unit Of Work
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
         // Email
         services.Configure<EmailSettings>(c => configuration.GetSection("EmailSettings"));

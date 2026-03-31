@@ -62,7 +62,6 @@ public class BaseRepository<T>(StreamerDbContext dbContext) : IAsyncRepository<T
     {
         return await _dbContext.Set<T>().FindAsync(id); 
     }
-
     public async Task<T> AddAsync(T entity)
     {
         _dbContext.Set<T>().Add(entity);
@@ -70,7 +69,6 @@ public class BaseRepository<T>(StreamerDbContext dbContext) : IAsyncRepository<T
 
         return entity;
     }
-
     public async Task<T> UpdateAsync(T entity)
     {
         _dbContext.Entry(entity).State = EntityState.Modified;
@@ -79,10 +77,25 @@ public class BaseRepository<T>(StreamerDbContext dbContext) : IAsyncRepository<T
 
         return entity;
     }
-
     public async Task DeleteAsync(T entity)
     {
         _dbContext.Set<T>().Remove(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public void AddEntity(T entity)
+    {
+        _dbContext.Set<T>().Add(entity);
+    }
+
+    public void UpdateEntity(T entity)
+    {
+        _dbContext.Entry(entity).State = EntityState.Modified;
+        _dbContext.Set<T>().Update(entity);
+    }
+
+    public void DeleteEntity(T entity)
+    {
+        _dbContext.Set<T>().Remove(entity);
     }
 }
