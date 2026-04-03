@@ -1,14 +1,11 @@
 ﻿using CleanArchitecture.Domain.Common;
 
-namespace CleanArchitecture.Domain
+namespace CleanArchitecture.Domain;
+
+public class Streamer : BaseDomainModel
 {
-    public class Streamer : BaseDomainModel
-    {
-        public string? Name { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Url { get; set; } = string.Empty;
 
-        public string? Url { get; set; }
-
-        public ICollection<Video>? Videos { get; set; }
-
-    }
+    public ICollection<Video> Videos { get; set; } = [];
 }

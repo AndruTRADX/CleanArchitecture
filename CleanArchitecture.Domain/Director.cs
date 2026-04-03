@@ -1,19 +1,15 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using CleanArchitecture.Domain.Common;
 
-namespace CleanArchitecture.Domain
+namespace CleanArchitecture.Domain;
+
+public class Director : BaseDomainModel
 {
-    public class Director : BaseDomainModel
-    {
-        
-        
-        public string? Name { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
 
-        public string? LastName { get; set; }
+    [NotMapped]
+    public string FullName => $"{Name} {LastName}"; // This is how you can create calculated fields in the domain
 
-        public int VideoId { get; set; }
-
-        public virtual Video? Video { get; set; }
-
-    }
+    public virtual ICollection<Video> Videos { get; set; } = [];
 }
