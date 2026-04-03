@@ -33,7 +33,7 @@ var app = builder.Build();
 
 app.UseExceptionHandler();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipelines
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
