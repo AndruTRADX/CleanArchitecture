@@ -30,6 +30,7 @@
     <Folder Include="Features\Streamers\Commands\Delete\" />
     <Folder Include="Features\Streamers\Commands\Update\" />
     <Folder Include="Features\Streamers\Queries\" />
+    <Folder Include="Features\Streamers\Queries\GetByUsername\" />
     <Folder Include="Features\Videos\" />
     <Folder Include="Features\Videos\Commands\" />
     <Folder Include="Features\Videos\Queries\" />

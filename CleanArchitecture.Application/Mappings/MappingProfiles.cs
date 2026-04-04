@@ -14,6 +14,7 @@ public class MappingProfiles : Profile
     {
         CreateMap<Video, VideoResponse>();
 
+        CreateMap<Streamer, StreamerResponse>();
         CreateMap<CreateStreamerCommand, Streamer>();
         CreateMap<UpdateStreamerCommand, Streamer>();
 

@@ -6,6 +6,11 @@ namespace CleanArchitecture.Infrastructure.Persistence;
 
 public class StreamerDbContext(DbContextOptions<StreamerDbContext> options) : DbContext(options)
 {
+    public DbSet<Streamer> Streamers { get; set; }
+    public DbSet<Video> Videos { get; set; }
+    public DbSet<Actor> Actors { get; set; }
+    public DbSet<Director> Directors { get; set; }
+    public DbSet<VideoActor> VideoActors { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -55,14 +60,4 @@ public class StreamerDbContext(DbContextOptions<StreamerDbContext> options) : Db
         
         modelBuilder.Entity<VideoActor>().Ignore(va => va.Id); // This attribute will not be mapped when migrating
     }
-
-
-    public DbSet<Streamer>? Streamers { get; set; }
-
-    public DbSet<Video>? Videos { get; set; }
-
-    public DbSet<Actor>? Actors { get; set; }
-
-    public DbSet<Director>? Directores { get; set; }
-
 }

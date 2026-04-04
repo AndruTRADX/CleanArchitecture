@@ -1,7 +1,10 @@
 using CleanArchitecture.API.ExceptionHandlers;
 using CleanArchitecture.Application;
 using CleanArchitecture.Identity;
+using CleanArchitecture.Identity.Persistence;
 using CleanArchitecture.Infrastructure;
+using CleanArchitecture.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,5 +50,28 @@ app.UseAuthorization();
 app.UseCors("CorsPolicy");
 
 app.MapControllers();
+
+using (var scoped = app.Services.CreateScope())
+{
+    var service = scoped.ServiceProvider;
+
+    var loggerFactory = service.GetRequiredService<ILoggerFactory>();
+
+    try
+    {
+        var context = service.GetRequiredService<StreamerDbContext>();
+        await context.Database.MigrateAsync();
+        await StreamerDbContextSeed.SeedAsync(context, loggerFactory);
+        await StreamerDbContextSeedData.LoadDataAsync(context, loggerFactory);
+
+        var contextIdentity = service.GetRequiredService<CAIdentityDbContext>();
+        await contextIdentity.Database.MigrateAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = loggerFactory.CreateLogger<Program>();
+        logger.LogError(ex, "Migration error");
+    }
+}
 
 app.Run();

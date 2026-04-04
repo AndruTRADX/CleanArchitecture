@@ -2,21 +2,23 @@ using System;
 using AutoMapper;
 using CleanArchitecture.Application.Contracts.Persistence;
 using CleanArchitecture.Application.Exceptions;
+using CleanArchitecture.Domain;
 using MediatR;
 
 namespace CleanArchitecture.Application.Features.Streamers.Commands.Delete;
 
-public class DeleteStreamerCommandHandler(IStreamerRepository streamerRepository, IMapper mapper) : IRequestHandler<DeleteStreamerCommand, Unit>
+public class DeleteStreamerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<DeleteStreamerCommand, Unit>
 {
-    private readonly IStreamerRepository _streamerRepository = streamerRepository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
 
     public async Task<Unit> Handle(DeleteStreamerCommand request, CancellationToken cancellationToken)
     {
-        var response = await _streamerRepository.GetByIdAsync(request.Id)
+        var response = await _unitOfWork.Repository<Streamer>().GetFirstAsync(p => p.Id == request.Id)
             ?? throw new NotFoundException("Streamer", request.Id);
 
-        await _streamerRepository.DeleteAsync(response);
+        _unitOfWork.Repository<Streamer>().DeleteEntity(response);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }
