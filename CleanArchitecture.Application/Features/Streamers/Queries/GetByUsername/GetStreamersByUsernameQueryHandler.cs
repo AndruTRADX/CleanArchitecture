@@ -22,8 +22,6 @@ public class GetStreamersByUsernameQueryHandler(IUnitOfWork unitOfWork, IMapper 
             disableTracking: true
         );
 
-        var data = _mapper.Map<List<StreamerResponse>>(response);
-
-        return data;
+        return _mapper.Map<List<StreamerResponse>>(response);;
     }
 }

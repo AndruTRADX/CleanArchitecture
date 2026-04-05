@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using CleanArchitecture.Application.Specifications;
 using CleanArchitecture.Domain.Common;
 
 namespace CleanArchitecture.Application.Contracts.Persistence;
@@ -37,4 +38,8 @@ public interface IAsyncRepository<T> where T : BaseDomainModel
     void AddEntity(T entity);
     void UpdateEntity(T entity);
     void DeleteEntity(T entity);
+
+    Task<T?> GetByIdWithSpec(ISpecification<T> specification);
+    Task<IReadOnlyList<T>> GetAllWithSpec(ISpecification<T> specification);
+    Task<int> CountAsync(ISpecification<T> specification);
 }

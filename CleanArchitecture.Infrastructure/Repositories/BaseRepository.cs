@@ -1,7 +1,9 @@
 using System.Linq.Expressions;
 using CleanArchitecture.Application.Contracts.Persistence;
+using CleanArchitecture.Application.Specifications;
 using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.Infrastructure.Specification;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Repositories;
@@ -126,5 +128,25 @@ public class BaseRepository<T>(StreamerDbContext dbContext) : IAsyncRepository<T
         var responseQuery = await query.ToListAsync();
 
         return responseQuery.FirstOrDefault();
+    }
+
+    public async Task<T?> GetByIdWithSpec(ISpecification<T> specification)
+    {
+        return await ApplySpecification(specification).FirstOrDefaultAsync();
+    }
+
+    public async Task<IReadOnlyList<T>> GetAllWithSpec(ISpecification<T> specification)
+    {
+        return await ApplySpecification(specification).ToListAsync();
+    }
+
+    public async Task<int> CountAsync(ISpecification<T> specification)
+    {
+        return await ApplySpecification(specification).CountAsync();
+    }
+
+    public IQueryable<T> ApplySpecification(ISpecification<T> specification)
+    {
+        return SpecificationEvaluator<T>.GetQuery(_dbContext.Set<T>().AsQueryable(), specification);
     }
 }

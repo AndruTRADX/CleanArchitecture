@@ -1,6 +1,7 @@
 using CleanArchitecture.Application.Features.Streamers.Commands.Create;
 using CleanArchitecture.Application.Features.Streamers.Commands.Delete;
 using CleanArchitecture.Application.Features.Streamers.Commands.Update;
+using CleanArchitecture.Application.Features.Streamers.Queries.GetByUrl;
 using CleanArchitecture.Application.Features.Streamers.Queries.GetByUsername;
 using CleanArchitecture.Application.Models.Response;
 using MediatR;
@@ -19,6 +20,13 @@ namespace CleanArchitecture.API.Controllers
         public async Task<ActionResult<IEnumerable<StreamerResponse>>> GetByUsername(string username)
         {
             return await _mediator.Send(new GetStreamersByUsernameQuery { Username = username });
+        }
+
+        // Bad practice though, this could be just one method, but it's just to do it with the specification pattern
+        [HttpGet("ByUrl/{url}")]
+        public async Task<ActionResult<IEnumerable<StreamerResponse>>> GetByUrl(string url)
+        {
+            return await _mediator.Send(new GetStreamersByUrlQuery { Url = url });
         }
 
         [HttpPost]

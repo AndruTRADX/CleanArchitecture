@@ -18,6 +18,7 @@ public class MappingProfiles : Profile
         CreateMap<CreateStreamerCommand, Streamer>();
         CreateMap<UpdateStreamerCommand, Streamer>();
 
+        CreateMap<Director, DirectorResponse>();
         CreateMap<CreateDirectorCommand, Director>();
     }
 }

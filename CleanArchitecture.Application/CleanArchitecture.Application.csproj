@@ -24,12 +24,14 @@
     <Folder Include="Features\Directors\Commands\Delete\" />
     <Folder Include="Features\Directors\Commands\Update\" />
     <Folder Include="Features\Directors\Queries\" />
+    <Folder Include="Features\Directors\Queries\GetPagedDirectors\" />
     <Folder Include="Features\Streamers\" />
     <Folder Include="Features\Streamers\Commands\" />
     <Folder Include="Features\Streamers\Commands\Create\" />
     <Folder Include="Features\Streamers\Commands\Delete\" />
     <Folder Include="Features\Streamers\Commands\Update\" />
     <Folder Include="Features\Streamers\Queries\" />
+    <Folder Include="Features\Streamers\Queries\GetByUrl\" />
     <Folder Include="Features\Streamers\Queries\GetByUsername\" />
     <Folder Include="Features\Videos\" />
     <Folder Include="Features\Videos\Commands\" />
@@ -37,6 +39,7 @@
     <Folder Include="Features\Videos\Queries\GetVideos\" />
     <Folder Include="Models\Email\" />
     <Folder Include="Models\Exception\" />
+    <Folder Include="Specifications\Streamers\" />
   </ItemGroup>
 
   <ItemGroup>
