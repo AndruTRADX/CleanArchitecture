@@ -1,4 +1,3 @@
-using System;
 using CleanArchitecture.Application.Models.Identity.Request;
 using CleanArchitecture.Application.Models.Identity.Response;
 
@@ -8,5 +7,5 @@ public interface IAuthService
 {
     Task<AuthResponse> Login(AuthRequest request);
     Task<RegistrationResponse> Register(RegistrationRequest request);
-    
+    Task<AuthResponse> RefreshToken(TokenRequest request);
 }

@@ -7,6 +7,7 @@ using CleanArchitecture.Identity.Persistence;
 using CleanArchitecture.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,35 +25,41 @@ public static class IdentityServiceRegistration
             options.UseSqlServer(configuration.GetConnectionString("Identity"), 
                 b => b.MigrationsAssembly(typeof(CAIdentityDbContext).Assembly.FullName));
         });
-        services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<CAIdentityDbContext>()
-            .AddDefaultTokenProviders();
+        /* TODO: Check whether leaving the ApplicationUser instead of the IdentityUser affects something,
+        if not, leave it as is */
+        services.AddIdentity<IdentityUser, IdentityRole>() 
+            .AddEntityFrameworkStores<CAIdentityDbContext>();
 
         // Services
         services.AddTransient<IAuthService, AuthService>();
+
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            RequireExpirationTime = false,
+            ClockSkew = TimeSpan.Zero,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.ASCII.GetBytes(configuration["JwtSettings:Key"] 
+                    ?? throw new InvalidOperationException("JwtSettings:Key is not configured"))
+            ),
+        };
+
+        services.AddSingleton(tokenValidationParameters);
 
         // Token config
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
         .AddJwtBearer(options =>
         {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-                ValidIssuer = configuration["JwtSettings:Issuer"],
-                ValidAudience = configuration["JwtSettings:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"] 
-                        ?? throw new InvalidOperationException("JwtSettings:Key is not configured"))
-                ),
-            };
+            options. SaveToken = true;
+            options.TokenValidationParameters = tokenValidationParameters;
         });
 
 
