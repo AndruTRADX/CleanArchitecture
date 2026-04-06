@@ -18,7 +18,8 @@ public class MappingProfiles : Profile
             .ForMember(src => src.DirectorFullName,
                 opt => opt.MapFrom(dest => dest.Director == null 
                     ? string.Empty 
-                    : $"{dest.Director.Name ?? string.Empty} {dest.Director.LastName ?? string.Empty}"));
+                    : $"{dest.Director.Name ?? string.Empty} {dest.Director.LastName ?? string.Empty}"))
+            .ForMember(src => src.Actors, opt => opt.MapFrom(dest => dest.Actors));
 
         CreateMap<Streamer, StreamerResponse>();
         CreateMap<CreateStreamerCommand, Streamer>();
