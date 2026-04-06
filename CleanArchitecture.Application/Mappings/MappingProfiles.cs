@@ -12,7 +12,13 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Video, VideoResponse>();
+        CreateMap<Video, VideoResponse>()
+            .ForMember(src => src.StreamerName, 
+                opt => opt.MapFrom(dest => dest.Streamer == null ? string.Empty : (dest.Streamer.Name ?? string.Empty)))
+            .ForMember(src => src.DirectorFullName,
+                opt => opt.MapFrom(dest => dest.Director == null 
+                    ? string.Empty 
+                    : $"{dest.Director.Name ?? string.Empty} {dest.Director.LastName ?? string.Empty}"));
 
         CreateMap<Streamer, StreamerResponse>();
         CreateMap<CreateStreamerCommand, Streamer>();
@@ -20,5 +26,7 @@ public class MappingProfiles : Profile
 
         CreateMap<Director, DirectorResponse>();
         CreateMap<CreateDirectorCommand, Director>();
+
+        CreateMap<Actor, ActorResponse>();
     }
 }

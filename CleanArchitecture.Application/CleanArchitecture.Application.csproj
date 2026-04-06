@@ -18,6 +18,9 @@
     <Folder Include="Contracts\Persistence\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Features\" />
+    <Folder Include="Features\Actors\" />
+    <Folder Include="Features\Actors\Queries\" />
+    <Folder Include="Features\Actors\Queries\GetPaged\" />
     <Folder Include="Features\Directors\" />
     <Folder Include="Features\Directors\Commands\" />
     <Folder Include="Features\Directors\Commands\Create\" />
@@ -36,10 +39,13 @@
     <Folder Include="Features\Videos\" />
     <Folder Include="Features\Videos\Commands\" />
     <Folder Include="Features\Videos\Queries\" />
+    <Folder Include="Features\Videos\Queries\GetPaged\" />
     <Folder Include="Features\Videos\Queries\GetVideos\" />
     <Folder Include="Models\Email\" />
     <Folder Include="Models\Exception\" />
+    <Folder Include="Specifications\Actors\" />
     <Folder Include="Specifications\Streamers\" />
+    <Folder Include="Specifications\Videos\" />
   </ItemGroup>
 
   <ItemGroup>

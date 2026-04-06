@@ -22,6 +22,7 @@ public class CAIdentityDbContext(DbContextOptions<CAIdentityDbContext> options) 
     {
         optionsBuilder.ConfigureWarnings(warnings =>
             warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+
         base.OnConfiguring(optionsBuilder);
     }
 }

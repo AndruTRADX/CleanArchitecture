@@ -15,7 +15,7 @@ namespace CleanArchitecture.API.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpGet]
-        public async Task<ActionResult<PagedResponse<DirectorResponse>>> Create([FromQuery] GetPagedDirectorsQuery query)
+        public async Task<ActionResult<PagedResponse<DirectorResponse>>> GetPaged([FromQuery] GetPagedDirectorsQuery query)
         {
             return await _mediator.Send(query);
         }

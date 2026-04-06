@@ -9,10 +9,7 @@ public class BaseSpecification<T> : ISpecification<T>
         Criteria = criteria;
     }
 
-    public BaseSpecification()
-    {
-
-    }
+    public BaseSpecification() { }
 
     public Expression<Func<T, bool>> Criteria { get; } = _ => true;
     public List<Expression<Func<T, object>>> Includes { get; } = [];
